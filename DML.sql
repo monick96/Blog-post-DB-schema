@@ -1,4 +1,4 @@
-USE blog_post;
+--USE blog_post;
 
 -- Datos de prueba
 
