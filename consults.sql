@@ -98,7 +98,60 @@ SELECT status , COUNT(*) post_quantity
 FROM posts
 GROUP BY status;
 
+SELECT YEAR(post_date) AS post_year,COUNT(*) AS post_quantity
+FROM posts
+GROUP BY post_year ;
+
+SELECT MONTHNAME(post_date) AS post_month,COUNT(*) AS post_quantity
+FROM posts
+GROUP BY post_month ;
+
+
+SELECT status, MONTHNAME(post_date) AS post_month,COUNT(*) AS post_quantity
+FROM posts
+GROUP BY status, post_month ;
+
+SELECT *
+FROM posts
+ORDER BY post_date DESC;
+
+SELECT *
+FROM posts
+ORDER BY post_date 
+LIMIT 5;
+
+SELECT MONTHNAME(post_date) AS post_month,status, COUNT(*) AS post_quantity
+FROM posts
+GROUP BY status, post_month
+HAVING post_quantity >1 
+ORDER BY post_month;
+
+SELECT DATE(MIN(post_date)) AS date, YEAR(post_date) AS post_year
+FROM posts
+GROUP BY post_year;
+
+--Nested query
+
+SELECT new_table_projection.date,COUNT(*) AS post_count
+FROM (
+SELECT DATE(MIN(post_date)) AS date, YEAR(post_date) AS post_year
+FROM posts
+GROUP BY post_year
+) AS new_table_projection
+GROUP BY new_table_projection.date
+ORDER BY new_table_projection.date;
+
+SELECT * 
+FROM posts
+WHERE post_date =(
+	SELECT MAX(post_date)
+    FROM posts
+);
+
 */
+
+
+
 
 
 
