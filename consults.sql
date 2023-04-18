@@ -1,4 +1,17 @@
-USE blog_post;
+/*
+De pregunta a Query
+
+SELECT: Lo que quieres mostrar
+FROM: De dónde voy a tomar los datos
+WHERE: Los filtros de los datos que quieres mostrar
+GROUP BY: Los rubros por los que me interesa agrupar la información
+ORDER BY: El orden en que quiero presentar mi información
+HAVING: Los filtros que quiero que mis datos agrupados tengan
+*/
+
+
+
+/*USE blog_post;*/
 /*SELECT * FROM posts;
 
 SELECT title, post_date, status FROM posts;
@@ -147,6 +160,47 @@ WHERE post_date =(
 	SELECT MAX(post_date)
     FROM posts
 );
+
+--How many tags does the blog post have?
+SELECT posts.title, COUNT(*)num_tags
+FROM posts 
+INNER JOIN posts_tags ON posts.id = posts_tags.post_id
+INNER JOIN tags ON tags.id = posts_tags.tag_id
+GROUP BY posts.id
+ORDER BY num_tags DESC;
+
+
+--details of tags in every posts
+
+SELECT posts.title, GROUP_CONCAT(name_tag)
+FROM posts 
+INNER JOIN posts_tags ON posts.id = posts_tags.post_id
+INNER JOIN tags ON tags.id = posts_tags.tag_id
+GROUP BY posts.id;
+
+---what tag dont use it
+SELECT * 
+FROM tags
+LEFT JOIN posts_tags ON tags.id = posts_tags.tag_id
+WHERE posts_tags.tag_id IS NULL ;
+
+--short name tables
+
+SELECT c.name_category, COUNT(*) AS cant_posts
+FROM categories AS c
+INNER JOIN posts AS p ON c.id= p.category_id
+GROUP BY c.id
+ORDER BY cant_posts DESC
+LIMIT 1;
+
+
+what user write more?
+
+SELECT u.nickname, COUNT(*) AS cant_posts
+FROM users AS u
+INNER JOIN posts AS p ON u.id= p.user_id
+GROUP BY u.id
+ORDER BY cant_posts DESC;
 
 */
 
