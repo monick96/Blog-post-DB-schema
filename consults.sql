@@ -202,6 +202,19 @@ INNER JOIN posts AS p ON u.id= p.user_id
 GROUP BY u.id
 ORDER BY cant_posts DESC;
 
+about what categor is that posts?
+SELECT u.nickname, COUNT(*) AS cant_posts, GROUP_CONCAT(name_category)
+FROM users AS u
+INNER JOIN posts AS p ON u.id= p.user_id
+INNER JOIN categories AS c ON c.id = p.category_id
+GROUP BY u.id
+ORDER BY cant_posts DESC;
+
+what user dont write?
+SELECT *
+FROM users	AS u
+LEFT JOIN posts ON u.id= posts.user_id
+WHERE posts.user_id IS NULL;
 */
 
 
